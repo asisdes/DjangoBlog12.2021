@@ -1,4 +1,6 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 # Create your models here.
 
@@ -20,6 +22,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['title']
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 class Tag(models.Model):
     title = models.CharField(max_length=100)
@@ -30,13 +34,14 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['title']
-
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, verbose_name='Url Post', unique=True)
     author = models.CharField(max_length=100)
-    content = models.TextField(blank=True)
+    content = CKEditor5Field(config_name='extends', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано') #Дата создается в момент создания
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", blank=True)
     views = models.IntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -49,3 +54,5 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
