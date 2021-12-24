@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 
 
@@ -20,6 +21,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={"slug": self.slug})
+
     class Meta:
         ordering = ['title']
         verbose_name = 'Категория'
@@ -38,8 +42,8 @@ class Tag(models.Model):
         verbose_name_plural = 'Тэги'
 
 class Post(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, verbose_name='Url Post', unique=True)
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    slug = models.SlugField(max_length=255, verbose_name='Url для СЕО', unique=True)
     author = models.CharField(max_length=100)
     content = CKEditor5Field(config_name='extends', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано') #Дата создается в момент создания
