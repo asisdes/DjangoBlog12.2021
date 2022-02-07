@@ -2,7 +2,7 @@
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
         {% for item in categories %}
-        <li><a href="{{ item.get_absolute_url }}}">{{ item.title }}</a></li>
+        <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
         {% endfor %}
     </ul>
 </div>

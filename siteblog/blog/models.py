@@ -41,6 +41,9 @@ class Tag(models.Model):
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
 
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={"slug": self.slug})
+
 class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, verbose_name='Url для СЕО', unique=True)
@@ -56,7 +59,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('post', kwargs={"slug": self.slug})
+
     class Meta:
         ordering = ['-created_at']
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+
